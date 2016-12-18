@@ -153,7 +153,8 @@ namespace Hearthstone_Deck_Tracker.Windows
 
 			var showPlayerCthunCounter = WotogCounterHelper.ShowPlayerCthunCounter;
 			var showPlayerSpellsCounter = WotogCounterHelper.ShowPlayerSpellsCounter;
-			if(showPlayerCthunCounter)
+			var showPlayerJadeCounter = WotogCounterHelper.ShowPlayerJadeCounter;
+			if (showPlayerCthunCounter)
 			{
 				var proxy = WotogCounterHelper.PlayerCthunProxy;
 				WotogIconsPlayer.Attack = (proxy?.Attack ?? 6).ToString();
@@ -161,11 +162,18 @@ namespace Hearthstone_Deck_Tracker.Windows
 			}
 			if(showPlayerSpellsCounter)
 				WotogIconsPlayer.Spells = _game.Player.SpellsPlayedCount.ToString();
+			if (showPlayerJadeCounter)
+			{
+				var maxGolem = WotogCounterHelper.PlayerMaxJadeGolem;
+				WotogIconsPlayer.Jade = Math.Min(maxGolem + 1, 30).ToString();
+			}
 			WotogIconsPlayer.WotogCounterStyle = showPlayerCthunCounter && showPlayerSpellsCounter ? Full : (showPlayerCthunCounter ? Cthun : (showPlayerSpellsCounter ? Spells : None));
+			WotogIconsPlayer.JadeCounterStyle = showPlayerJadeCounter ? Full : None;
 
 			var showOpponentCthunCounter = WotogCounterHelper.ShowOpponentCthunCounter;
 			var showOpponentSpellsCounter = WotogCounterHelper.ShowOpponentSpellsCounter;
-			if(showOpponentCthunCounter)
+			var showOpponentJadeCounter = WotogCounterHelper.ShowOpponentJadeCounter;
+			if (showOpponentCthunCounter)
 			{
 				var proxy = WotogCounterHelper.OpponentCthunProxy;
 				WotogIconsOpponent.Attack = (proxy?.Attack ?? 6).ToString();
@@ -173,7 +181,13 @@ namespace Hearthstone_Deck_Tracker.Windows
 			}
 			if(showOpponentSpellsCounter)
 				WotogIconsOpponent.Spells = _game.Opponent.SpellsPlayedCount.ToString();
+			if (showOpponentJadeCounter)
+			{
+				var maxGolem = WotogCounterHelper.OpponentMaxJadeGolem;
+				WotogIconsOpponent.Jade = Math.Min(maxGolem + 1, 30).ToString();
+			}
 			WotogIconsOpponent.WotogCounterStyle = showOpponentCthunCounter && showOpponentSpellsCounter ? Full : (showOpponentCthunCounter ? Cthun : (showOpponentSpellsCounter ? Spells : None));
+			WotogIconsOpponent.JadeCounterStyle = showOpponentJadeCounter ? Full : None;
 
 		}
 
